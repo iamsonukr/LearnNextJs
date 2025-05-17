@@ -1,0 +1,70 @@
+components -> Class based || Functional components
+           -> Client Side || Server Side
+Client side -> if it runs in the browser it is the client side components
+Server side -> if it runs on the server it is the server side components
+Next js automatically converts every component to server component unless you instruct it not to useing "use client"
+
+Client side rendering -> Server sends basic HTML and css file to the browser where it is rendered
+Server side rendering -> Server process and render the html css on the server and sends fully rendered html and js code to the browser
+
+Server side rendering imporve the SEO of the website because search engine can crawl the website more easily
+Clint side makes it almost impossible for search engine to crawl the website because it is rendered on the client side and the search engine can't
+
+Routing -> is the process of mapping the url to the component 
+Next js has built in routing system called file based routing. It is based on the file system of the project. It means that if you have a file called index.js in the pages directory then it will be mapped to the root url of the website. If you have a file called about.js in the pages directory then it will be mapped to the url /about. If you have a file called contact.js in the pages directory then it will be mapped to the url /contact.
+
+Automatic Code Splitting -> is the process of splitting the code into smaller chunks so that it can be loaded on demand. So when a user visit a page only the code that is required for that page is loaded. This makes the website faster and more efficient.
+
+-> React requires manual configuration using Webpack to achieve this. But Next js does it automatically.
+
+Next supports automatic font optimization, image optimization, and code splitting. 
+It also supports server side rendering, static site generation, and internationalization. 
+It also supports routing and API routes. It also supports getStaticProps and get ServerSideProps. 
+It also supports getStaticPaths and getStaticProps. 
+It also supports getServer SideProps and getStaticProps. 
+
+Server Components are rendered only on the server. They are not sent to the browser as JavaScript. 
+Instead, their rendered HTML is streamed to the client, 
+improving performance by reducing bundle size and avoiding unnecessary client-side JavaScript.
+
+Client Components are pre-rendered on the server and sent to the browser as HTML templates. 
+Once they reach the browser, a process called hydration occurs. 
+During hydration, React attaches event listeners and makes the component interactive by turning the static HTML into a live React component.
+
+---------------- TO START --------------------
+npx create-next-app@latest
+
+page name inside any folder should always be page.tsx , but component name could be anything ...
+
+Remember that in Next.js's app directory, special file names like page.tsx, layout.tsx, and route.ts have specific meanings, 
+while your component files can follow whatever naming scheme you prefer.
+
+
+---------------- DYNAMIC ROUTES --------------
+
+dashboard/users/[id]
+
+-> Here id is dynamic , it can be 1,... 2 ...or 3
+-> GO to this page using <Link href={dashboard/users/1} >User One </Link>
+
+import React from 'react'
+
+const page = ({params}:{params:{id:string}}) => {
+    const {id}=params
+  return (
+    <div className='3xl' >User {id}</div>
+  )
+}
+
+export default page
+
+------------------ Layouts ------------------------
+
+Layout is the starting point of any application . It is the top most component of the application.
+put any component in Payout and it will save you from importing that component in each file it can be header footer etc.
+
+-> In Next js Root layout is always required . It is the top most component of the application. It is the starting point of any application .
+-> You can also create additional layouts for each routing page. For example, you can create a layout for the dashboard page and another for the about page. Name has to be layout.tsx in the page directory.
+-> 
+
+
