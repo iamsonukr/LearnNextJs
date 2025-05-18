@@ -58,6 +58,17 @@ const page = ({params}:{params:{id:string}}) => {
 
 export default page
 
+------------Route Groups ------------
+
+Route groups allow you to create files and folder without affecting the URL. (dashboar)/about  -> about 
+
+
+----------- Error handleing ---------------
+
+In next js there is a special file called error.js that cathes error and displayes them on UI.
+Error will always render the nearest error.js page.
+
+
 ------------------ Layouts ------------------------
 
 Layout is the starting point of any application . It is the top most component of the application.
@@ -67,4 +78,96 @@ put any component in Payout and it will save you from importing that component i
 -> You can also create additional layouts for each routing page. For example, you can create a layout for the dashboard page and another for the about page. Name has to be layout.tsx in the page directory.
 -> 
 
+
+---------------------- DATA FETCHING -------------------
+
+Server side fetching :
+-> It fetches the data on ther server side before sending it to the client. It is the default method in Next.js.
+-> It allows the crawlers to crawl the data and also it is good for SEO while in client side side fetching data enterd the html page after it has been loaded.
+-> Server side fetchiing will display the data to browser even if the JS in disabled on it .
+-> You need to write fewer lines of code.
+-> It has imporved initial load time.
+-> Reduces time for first content paint.
+-> It is good for SEO. 
+-> It has Automatic Request Deduplication.( Prevents duplication API calls )
+-> It has improved Sercurity as all the requests are made on the server side.
+-> Reduces Network Waterfall. Where api calles are made one after another. It parallaize them.
+-> They can make direct database calls as these are React Server componet and can access database resource directly.
+
+
+
+Client side fetching :
+It is the opposite of server side fetching . It fetches the data on the client side after the page has been loader.
+
+serverComponentHMRCache :- 
+This options allows to cache fetch response in Server component across Hot module replacement replaces it in local component.
+
+
+------- SERVER SIDE FETCHING TECHNIQUES -----------
+
+1> STATIC SITE GENERATION (SSG) :----------------
+-> HTML pages are generated at build time. It means content is created when the website is deployed not when you make a request.
+-> It is extremly fast and can be served from the CDN but is not suitable for website needed frequently updated content.
+
+By default NextJs uses static Rendering strategies in which results are cached and delivered through CDN
+
+
+2> INCREMENTAL STATIC REGENERATION (ISR) :----------------
+
+-> It is is an extension to SSG. It combines the effect of static generation with the ability to refresh and update content.
+-> We can use ISR in two ways.
+i> Time based revalidation :- It revalidates the page at a specified time. By using a variable
+export const revalidate = 3600
+> It is a route segment config.
+> It will revalidate the page after 3600 seconds.
+
+ii> It revalidate the particular page or api after a period of time.
+const data=await fetch("https://api.vercel.app/blog",{
+  next:{revalidate:3600}
+})
+
+
+3> SERVER SIDE RENDERING (SSR) :----------------
+-> It generate an html page on the server with response to the user request.
+-> It is slower than static site generation but faster than client side rendering.
+-> It puts lot of pressure on server , But it always have upto date content.
+-> Suitable for highly dynamic content and pages that require real time data.
+-> It has similar config as ISR.
+
+export const revalidate = 0 , : It will revalidate the page on every request.
+
+for specefic requests :-
+const data=await fetch("https://api.vercel.app/blog",{
+  next:{revalidate:0}
+})
+
+or
+
+const data=await fetch("https://api.vercel.app/blog",{
+  cache:"no-store",
+})
+
+4> Partial prerendering :----------------
+-> It combines static and dynamic rendering. 
+-> It works by creating the layout of the data to be dynamically changed. 
+-> It first shows the static data to the user and then fetches the dynamic data.
+
+
+------------------- API Routes ---------------
+
+-> To write backed in nextjs you need to create a folder named api and them a file in it with route.js
+-> Routing strucure of the backed is similar to that of the frontend of nextjs.
+
+
+------------------ Metadata setup --------------------------
+
+There are two ways in which we can manage databse in our project 
+1> Config based:-  create a js object in layout or any page file and export it, Next js will automatically detect it and convert it into relevent metadata tags.
+
+export cont metadata={
+  title:"My Blog",
+  description:"This is my blog",
+  image:"https://example.com/image.jpg",
+  ... etc
+}
 
