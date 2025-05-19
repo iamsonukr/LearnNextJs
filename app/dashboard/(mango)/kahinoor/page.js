@@ -1,3 +1,4 @@
+'use'
 import React from 'react'
 
 const Kohinoor = () => {
